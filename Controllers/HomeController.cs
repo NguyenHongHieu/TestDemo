@@ -11,6 +11,7 @@ namespace demo1.Controllers
         // GET: Home
         public ActionResult Index()
         {
+            string a = "Day la nhanh demo-branch";
             return RedirectToRoute("Login");
         }
     }
