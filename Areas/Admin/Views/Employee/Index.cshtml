@@ -1,0 +1,70 @@
+﻿@model demo1.Models.Views.UserModel
+@using demo1.CodeLogic.Helper
+@using demo1.CodeLogic.Commons
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var searchParam = ViewBag.SearchParam as demo1.CodeLogic.Commons.UserParam ?? new demo1.CodeLogic.Commons.UserParam();
+    var baseStatus = Model.BaseStatus;
+}
+
+
+<section class="wrapper mt-2">
+    <h3><i class="fa fa-angle-right"></i>&nbsp;@ViewBag.Title</h3>
+    <!-- row -->
+    <div class="row mt">
+        <div class="col-md-12">
+            <div class="content-panel col-md-12 col-xs-12">
+                <div class="col-md-12 mb10">
+                    <form class="quickSearch dataFilter" data-target="#div-users" action="@Model.Action" method="post" enctype="multipart/form-data">
+                        <div class="col-md-2" >
+
+
+                            @Html.CusTextBox("srName", "Name", searchParam.Name, "Name", "Name", false)
+                        </div>
+                        <div class="col-md-2" >
+
+
+                            @Html.CusTextBoxDigit("srPhone", "Phone", searchParam.Phone, "Phone", "Phone", false)
+                        </div>
+                        <div class="col-md-2" >
+                            @Html.CusDropdownList("srStatus", "Status", "Choose Status", baseStatus.Select(x => new SelectListItem() { Text = x.Value, Value = x.Key.ToString(), Selected = searchParam.Status == x.Key }), "Choose Status")
+
+                        </div>
+                        <div class="col-md-2">
+                            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;Search</button>
+                        </div>
+
+                        <div class="col-md-4 text-right" >
+                            <a href="/employee/add" class="btn btn-primary" style="color:aliceblue"><i class="fa fa-plus-circle"></i>&nbsp;Add New</a>
+
+                        </div>
+                    </form>
+                </div>
+
+                @*<div class="col-md-2">
+
+                    </div>*@
+            </div>
+            <div class="content-panel col-md-12  col-xs-12 no-padding cus-content-table" id="div-users">
+                @Html.Partial("Users", Model)
+            </div>
+            <!-- /content-panel -->
+        </div>
+        <!-- /col-md-12 -->
+    </div>
+    <!-- /row -->
+</section>
+
+
+@*@Scripts.Render("~/Assets/Admin/jquery/js/jquery.js")*@
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cusleft-employee").addClass("active");
+            $(".cusleft-employees").addClass("active-cus");
+        })
+
+    </script>
+}
+

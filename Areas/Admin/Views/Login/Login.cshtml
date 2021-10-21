@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Dashboard">
+    <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+    <title>@ViewBag.Title</title>
+
+    <!-- Favicons -->
+    <link href="~/Content/logo.ico" rel="shortcut icon" type="image/x-icon" />
+    @*<link rel="icon" type="image/png" href="~/Assets/Client/images/logo.ico" />*@
+    @*<link href="img/favicon.png" rel="icon">
+        <link href="img/apple-touch-icon.png" rel="apple-touch-icon">*@
+
+    <!-- Bootstrap core CSS -->
+    @Styles.Render("~/Assets/Admin/bootstrap/css/bootstrap.min.css")
+    <!--external css-->
+    @Styles.Render("~/Assets/Admin/fonts/font-awesome/css/font-awesome.css")
+    @Styles.Render("~/Assets/Admin/beyond/css/zabuto_calendar.css")
+    @Styles.Render("~/Assets/Admin/lib/gritter/css/jquery.gritter.css")
+    <!-- Custom styles for this template -->
+    @Styles.Render("~/Assets/Admin/beyond/css/style.css")
+    @Styles.Render("~/Assets/Admin/beyond/css/style-responsive.css")
+
+
+    <!-- base css -->
+    @*@Styles.Render("~/Assets/Admin/app/css/docless.css")*@
+    @Styles.Render("~/Assets/Admin/app/css/cust.css")
+    @Styles.Render("~/Assets/Admin/app/css/main.css")
+    @Styles.Render("~/Assets/Admin/app/css/style.css")
+
+    <!-- datetime picker css -->
+
+    @Styles.Render("~/Assets/Admin/lib/bootstrap-datepicker/css/datepicker.css")
+    @Styles.Render("~/Assets/Admin/lib/bootstrap-timepicker/compiled/timepicker.css")
+    @Styles.Render("~/Assets/Admin/lib/bootstrap-datetimepicker/css/datetimepicker.css")
+    @Styles.Render("~/Assets/Admin/lib/bootstrap-daterangepicker/css/daterangepicker.css")
+
+
+
+    <!-- CSS selectpicker -->
+    @Styles.Render("~/Assets/Origin/selectpicker/css/bootstrap-select.min.css")
+
+
+    <!-- fancybox -->
+    <link rel="stylesheet" href="~/Assets/Origin/fancybox/css/jquery.lightbox.min.css">
+
+</head>
+
+<body>
+    <!-- **********************************************************************************************************************************************************
+        MAIN CONTENT
+        *********************************************************************************************************************************************************** -->
+    <div id="login-page">
+        <div class="container">
+            <form class="form-login quickSubmit" action="/Admin/Login/Login">
+                <h2 class="form-login-heading">Sign In</h2>
+                <div class="login-wrap">
+                    <input type="text" class="form-control" name="Username" placeholder="Username" autofocus>
+                    <br>
+                    <input type="password" class="form-control" name="Password" placeholder="Password">
+                    <label class="checkbox">
+                        <span class="pull-right">
+                            <a data-toggle="modal" href="login.html#myModal">
+                                Forgot password?
+                            </a>
+                        </span>
+                    </label>
+                    <button class="btn btn-theme btn-block" type="submit" style="margin-top:35px"><i class="fa fa-lock"></i> LOGIN</button>
+                
+                    @*
+                    <hr>
+                    <div class="registration">
+                        Chưa có tài khoản?<br />
+                        <a class="" href="#">
+                            Đăng ký
+                        </a>
+                    </div>*@
+                </div>
+            </form>
+            <!-- Modal -->
+            <form class="form-forgot quickSubmit closeOnSubmitSuccess" action="/Admin/Login/ForgotPassword" method="post">
+                <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title">
+                                    Forgot password
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Enter your email to get a new password</p>
+                                <input type="text" name="Email" placeholder="Email" autocomplete="off" class="form-control placeholder-no-fix">
+                            </div>
+                            <div class="modal-footer">
+                                <button data-dismiss="modal" class="btn btn-default" type="button">Cancel</button>
+                                <button class="btn btn-theme" type="submit">Confirm</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <!-- modal -->
+        </div>
+    </div>
+
+    <script src="/Assets/Admin/jquery/js/jquery.min.js"></script>
+    <script src="/Assets/Admin/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/Assets/Admin/beyond/js/validation/bootstrapValidator.min.js"></script>
+
+    <script src="/Assets/Admin/app/js/upfile.js"></script>
+    <script src="/Assets/Admin/app/js/autocomplete.js"></script>
+    <script src="/Assets/Admin/app/js/utils.js"></script>
+    <script src="/Assets/Admin/app/js/main.js"></script>
+    <script src="/Assets/Admin/app/js/stgfile.js"></script>
+    <script src="/Assets/Admin/app/js/admin.js"></script>
+    <script src="/Assets/Admin/app/js/avatar.js"></script>
+    <script src="/Assets/Admin/app/js/pages.js"></script>
+    @Html.Partial("Message")
+
+    @Scripts.Render("~/Assets/Admin/jquery/js/jquery.cscrollbar.js")
+    @Scripts.Render("~/Assets/Admin/jquery/js/jquery.ui.js")
+    @Scripts.Render("~/Assets/Admin/jquery/js/jquery.dcjqaccordion.2.7.js")
+    @Scripts.Render("~/Assets/Admin/jquery/js/jquery.scrollTo.min.js")
+    @Scripts.Render("~/Assets/Admin/jquery/js/jquery.nicescroll.js")
+    @Scripts.Render("~/Assets/Admin/jquery/js/jquery.sparkline.js")
+
+    <!--common script for all pages-->
+    @Scripts.Render("~/Assets/Admin/lib/js/common-scripts.js")
+    @Scripts.Render("~/Assets/Admin/lib/gritter/js/jquery.gritter.js")
+    @Scripts.Render("~/Assets/Admin/lib/js/gritter-conf.js")
+    <!--script for this page-->
+    @Scripts.Render("~/Assets/Admin/lib/js/sparkline-chart.js")
+
+    <!-- datetime picker -->
+    @Scripts.Render("~/Assets/Admin/lib/bootstrap-datepicker/js/bootstrap-datepicker.js")
+    @Scripts.Render("~/Assets/Admin/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js")
+    @Scripts.Render("~/Assets/Admin/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.vi.js")
+    @Scripts.Render("~/Assets/Admin/lib/bootstrap-timepicker/js/bootstrap-timepicker.js")
+
+
+
+
+    @Scripts.Render("~/Assets/Admin/lib/js/advanced-form-components.js")
+
+
+    @Scripts.Render("~/Assets/Admin/lib/chart-master/Chart.js")
+
+
+    <!-- JS selectpicker -->
+    @Scripts.Render("~/Assets/Origin/selectpicker/js/bootstrap-select.min.js")
+
+
+    <!-- fancybox -->
+    @Scripts.Render("~/Assets/Origin/fancybox/js/jquery.lightbox-plus-jquery.min.js")
+    @Scripts.Render("~/Assets/Origin/fancybox/js/main-fancybox.js")
+
+    <!--moment-->
+    <script src="/Assets/Origin/moment/moment.min.js"></script>
+    <script src="/Assets/Origin/moment/locale/vi.js"></script>
+
+
+
+    @Scripts.Render("~/Assets/Admin/lib/chart-master/Chart.js")
+
+    @*<script>
+        $.backstretch("img/login-bg.jpg", {
+            speed: 500
+        });
+    </script>*@
+</body>
+
+</html>

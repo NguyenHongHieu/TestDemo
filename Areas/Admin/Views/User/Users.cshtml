@@ -1,0 +1,101 @@
+﻿@model demo1.Models.Views.UserModel
+@using demo1.CodeLogic.Customs
+@using demo1.CodeLogic
+@using demo1.Models.QrCode
+@using demo1.CodeLogic.Enums
+@{
+    var users = Model.Users;
+    var baseStatus = Model.BaseStatus;
+    var roles = Model.Roles;
+    var deleteLink = "/Admin/User/IsDelete";
+}
+
+<table class="table table-striped table-bordered table-advance table-hover">
+    <thead>
+        <tr>
+            <th class="text-center">Order</th>
+            <th class="text-center">Name</th>
+            <th class="text-center">Phone</th>
+            <th class="text-center">Email</th>
+            <th class="text-center">Address</th>
+            <th class="text-center">Role</th>
+            <th class="text-center">Status</th>
+            <th class="text-center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (users.Count > 0)
+        {
+            var Order = ViewBag.Paging.PageStart;
+            foreach (var item in users)
+            {
+                Order++;
+                <tr>
+                    <td class="text-center">@Order</td>
+                    <td>@item.Name</td>
+                    <td>@item.Phone</td>
+                    <td>@item.Email</td>
+                    <td>@item.Address</td>
+                    <td class="text-center">@roles.GetValue(item.IDRole)</td>
+                    <td class="text-center">
+                        @Html.Raw(baseStatus.GetValueHtml(item.Status))
+                    </td>
+                    <td class="text-center">
+                        @*<button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>*@
+                        <div class="btn-group dropup">
+                            <a href="#" data-toggle="dropdown" class="btn btn-success btn-xs dropdown-toggle">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-blue dropdown-menu-right" style="top:100%;bottom:auto;">
+                                @if (item.Status == (int)Enums.BaseStatus.Active)
+                                {
+                                    <li><a href="@string.Format("/Admin/User/ChangeStatus?ID={0}&Status={1}",item.ID, (int)Enums.BaseStatus.UnActive)">Khóa</a></li>
+                                }
+                                else
+                                {
+                                    <li><a href="@string.Format("/Admin/User/ChangeStatus?ID={0}&Status={1}",item.ID, (int)Enums.BaseStatus.Active)">Kích hoạt</a></li>
+                                }
+                            </ul>
+                        </div>
+                        <a class="btn btn-primary btn-xs" href="@string.Format("/user/update/{0}",item.ID)">
+                            <i aria-hidden="true" title="@string.Format("Update")" class="fa fa-pencil"></i>
+                        </a>
+                        <a class="quickDelete btn btn-danger btn-xs" style="color:aliceblue" data-target=".ui-dialog:visible" data-id="@item.ID" href="@deleteLink">
+                            <i aria-hidden="true" title="@string.Format("Delete")" class="fa fa-trash-o"></i>
+                        </a>
+                        @*<button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>*@
+                    </td>
+                </tr>
+            }
+
+        }
+
+    </tbody>
+</table>
+<div class="row DTTTFooter">
+    @if (users.Count <= 0)
+    {
+        <div class="dataTables_info col-sm-12 text-center padt10">
+            <strong class="gray">
+                @string.Format("There are no records")
+            </strong>
+        </div>
+    }
+    else
+    {
+        <div class="col-md-3">
+            <div class="dataTables_info text-center" id="searchable_info" role="status" aria-live="polite">
+                <div>
+                    <strong class="gray">
+                        @string.Format("There are total {0} records", ViewBag.Paging.Total)
+                    </strong>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3"></div>
+        <div class="col-sm-3 ">
+            @ViewBag.Paging.RenderAdmin("#div-users")
+        </div>
+    }
+</div>

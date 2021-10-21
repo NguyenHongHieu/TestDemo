@@ -1,0 +1,84 @@
+﻿
+
+@model demo1.Models.Views.AttendanceModel
+@using demo1.CodeLogic.Helper
+@using demo1.CodeLogic.Customs
+@using demo1.CodeLogic
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var attendance = Model.Attendance;
+    var user = Model.User;
+    var baseStatus = Model.BaseStatus;
+}
+
+<section class="wrapper">
+    <h3><i class="fa fa-angle-right"></i>&nbsp;@ViewBag.Title</h3>
+    <!-- BASIC FORM ELELEMNTS -->
+    <div class="row mt">
+        <div class="col-lg-12">
+            <div class="form-panel">
+                <h4 class="mb"><i class="fa fa-angle-right"></i> Thông tin điểm danh</h4>
+                <form id="FormCrAttendance" class="quickSubmit form-horizontal style-form bv-form validateForm useScrollBar" action="@Model.Action" method="post">
+
+                    <input type="hidden" name="ID" value="@attendance.ID" />
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Tên người dùng</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("", "", user.Name, "Tên người dùng", "Tên người dùng", isReadOnly: true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Giờ Check In</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("", "", Utils.DateTimeToString(attendance.CheckIn), "Giờ Check In", "Giờ Check In", isReadOnly: true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Giờ Check Out</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("", "", Utils.DateTimeToString(attendance.CheckOut), "Giờ Check Out", "Giờ Check Out", isReadOnly: true)
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Trạng thái</label>
+                        <div class="col-sm-10">
+                            @Html.Raw(baseStatus.GetValueStatusAttendance(attendance.Status))
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-sm-2 col-sm-2 control-label">Giờ tạo thông tin</label>
+                        <div class="col-sm-10">
+                            @Html.CusTextBox("", "", Utils.DateTimeToString(attendance.Created), "Giờ tạo thông tin", "Giờ tạo thông tin", isReadOnly: true)
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <div class="text-right">
+                                <a href="/thong-tin-diem-danh" class="btn btn-success " style="color:aliceblue; margin-right:2%">Quay lại</a>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- col-lg-12-->
+    </div>
+</section>
+
+@section css{
+
+}
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cusleft-report").addClass("active");
+            $(".cusleft-reportattendance").addClass("active-cus");
+        });
+    </script>
+}
+
+
+

@@ -1,0 +1,66 @@
+﻿@model demo1.Models.Views.WorkDayModel
+@using demo1.CodeLogic.Helper
+@using demo1.CodeLogic.Enums
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var years = Model.Years;
+    var months = Model.Months;
+    var searchParam = ViewBag.SearchParam as demo1.CodeLogic.Commons.WorkDayParam ?? new demo1.CodeLogic.Commons.WorkDayParam();
+
+}
+
+<section class="wrapper mt-2">
+    <h3><i class="fa fa-angle-right"></i> List Work Days</h3>
+    <!-- row -->
+    <div class="row mt">
+        <div class="col-md-12">
+            <div class="content-panel col-md-12 col-xs-12">
+                <div class="col-md-12">
+                    <form class="quickSearch dataFilter" id="form-data" data-target="#div-WorkDays" action="@Model.Action" method="post" enctype="multipart/form-data">
+                        <div class="col-md-12">
+                            <div class="col-md-2 mb10" style="display: flex">
+                                <label class="center-top-bottom mr5">Month</label>
+                                @Html.CusDropdownList("srMonth", "Month", null, months.Select(x => new SelectListItem() { Text = x.ToString(), Value = x.ToString(), Selected = searchParam.Month == x }), null, true, "Choose Month")
+                            </div>
+                            <div class="col-md-2 mb10" style="display: flex">
+                                <label class="center-top-bottom mr5">Year</label>
+                                @Html.CusDropdownList("srYear", "Year", null, years.Select(x => new SelectListItem() { Text = x.ToString(), Value = x.ToString(), Selected = searchParam.Month == x }), null, true, "Choose Year")
+                            </div>
+                            <div class="col-md-2 mb10" style="margin-bottom:10px">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i>&nbsp;Search</button>
+                            </div>
+                            @*<div class="col-md-4 text-right">
+                                <a href="/report/add" class="btn btn-primary" style="color:aliceblue"><i class="fa fa-plus-circle"></i>&nbsp;Add New</a>
+
+                            </div>*@
+                        </div>
+
+
+
+                    </form>
+                </div>
+
+                @*<div class="col-md-2">
+
+                    </div>*@
+            </div>
+            <div class="content-panel col-md-12 no-padding cus-content-table col-xs-12" id="div-WorkDays">
+                @Html.Partial("WorkDays", Model)
+            </div>
+            <!-- /content-panel -->
+        </div>
+        <!-- /col-md-12 -->
+    </div>
+    <!-- /row -->
+</section>
+
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cusleft-workday").addClass("active");
+            $(".cusleft-workdays").addClass("active-cus");
+        })
+
+    </script>
+}

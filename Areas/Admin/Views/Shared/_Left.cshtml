@@ -1,0 +1,241 @@
+﻿@using demo1.CodeLogic
+@using demo1.Models.QrCode
+@using demo1.CodeLogic.Enums
+@{
+    var user = (User)Session["CurrentUserWithDB"] ?? (User)Session["CurrentUser"] ?? new demo1.Models.QrCode.User();
+    var checkAdmin = SystemConfig.IsRole(user, new int[] { (int)Enums.Role.Admin, (int)Enums.SystemRole.System });
+    var checkEmployee = SystemConfig.IsRole(user, new int[] { (int)Enums.Role.Employee, (int)Enums.SystemRole.System });
+    var checkHr = SystemConfig.IsRole(user, new int[] { (int)Enums.Role.HR, (int)Enums.SystemRole.System });
+    var checkManager = SystemConfig.IsRole(user, new int[] { (int)Enums.Role.Manager, (int)Enums.SystemRole.System });
+}
+<div id="sidebar" class="nav-collapse ">
+    <!-- sidebar menu start-->
+    <ul class="sidebar-menu" id="nav-accordion">
+        <p class="centered">
+            <div style="cursor: pointer;" class="centered" height="80" href="@(user.PathImg.IsNullOrEmpty() ? "/Assets/Admin/images/no-avatar.png" : user.PathImg)" data-fancybox="2u_file_video">
+                <img style="background: #e7e7e7;" height="80" src="@(user.PathImg.IsNullOrEmpty() ? "/Assets/Admin/images/no-avatar.png" : user.PathImg)" class="img-circle" width="80">
+            </div>
+            @*<a href="profile.html">
+                <img style="background: #e7e7e7;" src="@(user.PathImg.IsNullOrEmpty() ? "/Assets/Client/images/no-avatar.png" : user.PathImg)" class="img-circle" width="80">
+            </a>*@
+        </p>
+        <h5 class="centered">@user.Name</h5>
+        @*@if (checkAdmin)
+        {
+            <li class="mt">
+                <a class="cusleft-home" href="/">
+                    <i class="fa fa-dashboard"></i>
+                    <span>Tổng quan</span>
+                </a>
+            </li>
+        }*@
+        @if (checkAdmin)
+        {
+            <li class="sub-menu">
+                <a class="cusleft-user" href="javascript:;">
+                    <i class="fa fa-user-circle"></i>
+                    <span>Account</span>
+                </a>
+                <ul class="sub sub-cus">
+                    <li><a class="cusleft-roles" href="/role">List Roles</a></li>
+                    <li><a class="cusleft-users" href="/user">Account Management</a></li>
+                    @*<li><a class="cusleft-userroles" href="/phan-quyen">Phân quyền</a></li>*@
+                </ul>
+            </li>
+        }
+        @if (checkHr)
+        {
+            <li class="sub-menu">
+                <a class="cusleft-employee" href="javascript:;">
+                    <i class="fa fa-user-circle"></i>
+                    <span>Employee</span>
+                </a>
+                <ul class="sub sub-cus">
+                    <li><a class="cusleft-employees" href="/employee">Employee Management</a></li>
+                </ul>
+            </li>
+        }
+        @if (checkEmployee || checkHr || checkManager)
+        {
+
+            <li class="sub-menu">
+                <a class="cusleft-leave" href="javascript:;">
+                    <i class="fa fa-bed"></i>
+                    <span>Leave</span>
+                </a>
+                <ul class="sub sub-cus">
+                    @if (checkEmployee)
+                    {
+                        <li><a class="cusleft-leaves" href="/leave">List Leaves</a></li>
+                    }
+                </ul>
+            </li>
+        }
+
+        @if (checkEmployee || checkHr)
+        {
+            <li class="sub-menu">
+                <a class="cusleft-report" href="javascript:;">
+                    <i class="fa fa-line-chart"></i>
+                    <span>Report</span>
+                </a>
+                <ul class="sub sub-cus">
+                    @if (checkEmployee)
+                    {
+                        <li><a class="cusleft-reports" href="/report">List Reports</a></li>
+                    }
+                </ul>
+            </li>
+        }
+
+        @if (checkEmployee || checkHr)
+        {
+            <li class="sub-menu">
+                <a class="cusleft-workday" href="javascript:;">
+                    <i class="fa fa-calendar"></i>
+                    <span>Work Day</span>
+                </a>
+                <ul class="sub sub-cus">
+                    @if (checkEmployee)
+                    {
+                        <li><a class="cusleft-workdays" href="/work-day">List Work Days</a></li>
+                    }
+                </ul>
+            </li>
+        }
+
+        @*@if (checkAdmin)
+        {
+            <li class="sub-menu">
+                <a class="cusleft-category" href="javascript:;">
+                    <i class="fa fa-desktop"></i>
+                    <span>Danh mục</span>
+                </a>
+                <ul class="sub sub-cus">
+                    <li><a class="cusleft-blogcategorys" href="/danh-muc-bai-viet">Danh mục bài viết</a></li>
+                    <li><a class="cusleft-servicecategorys" href="/danh-muc-dich-vu">Danh mục dịch vụ</a></li>
+                </ul>
+            </li>
+        }
+
+        @if (checkAdmin)
+        {
+            <li class="sub-menu">
+                <a class="cusleft-service" href="javascript:;">
+                    <i class="fa fa-bandcamp"></i>
+                    <span>Dịch vụ</span>
+                </a>
+                <ul class="sub sub-cus">
+                    <li><a class="cusleft-services" href="/dich-vu">Danh sách dịch vụ</a></li>
+                    <li><a class="cusleft-crservice" href="/dich-vu/tao-moi">Add New dịch vụ</a></li>
+                </ul>
+            </li>
+            <li class="sub-menu">
+                <a class="cusleft-blog" href="javascript:;">
+                    <i class="fa fa-book"></i>
+                    <span>Bài viết</span>
+                </a>
+                <ul class="sub sub-cus">
+                    <li><a class="cusleft-blogs" href="/bai-viet">Danh sách bài viết</a></li>
+                    <li><a class="cusleft-crblog" href="/bai-viet/tao-moi">Add New bài viết</a></li>
+                    <li><a class="cusleft-comments" href="/binh-luan-bai-viet">Bình luận bài viết</a></li>
+                </ul>
+            </li>
+        }
+
+        @if (checkAdmin)
+        {
+            <li class="sub-menu">
+                <a class="cusleft-product" href="javascript:;">
+                    <i class="fa fa-glass"></i>
+                    <span>Quản lý sản phẩm</span>
+                </a>
+                <ul class="sub sub-cus">
+                    <li><a class="cusleft-buy" href="/nhap-hang">Nhập hàng</a></li>
+                    <li><a class="cusleft-products" href="/san-pham">Danh sách sản phẩm</a></li>
+                    <li><a class="cusleft-sell" href="/ban-hang">Bán hàng</a></li>
+                </ul>
+            </li>
+        }
+
+        @if (checkAdmin)
+        {
+            <li class="sub-menu">
+                <a class="cusleft-group" href="javascript:;">
+                    <i class="fa fa-users"></i>
+                    <span>Quản lý nhóm</span>
+                </a>
+                <ul class="sub sub-cus">
+                    <li><a class="cusleft-groups" href="/nhom">Danh sách nhóm</a></li>
+                    <li><a class="cusleft-groupschedules" href="/lich-tap-nhom">Lịch tập nhóm</a></li>
+                </ul>
+            </li>
+        }
+
+
+        @if (checkAdmin)
+        {
+            <li class="sub-menu">
+                <a class="cusleft-history" href="javascript:;">
+                    <i class="fa fa-tasks"></i>
+                    <span>Lịch sử tập luyện & dạy</span>
+                </a>
+                <ul class="sub sub-cus">
+                    <li><a class="cusleft-historycoach" href="/lich-su-day-hlv">Lịch sử dạy HLV</a></li>
+                    <li><a class="cusleft-practicedemos" href="/lich-dang-ki-tap-thu">Lịch đăng ký tập thử</a></li>
+                </ul>
+            </li>
+        }
+
+
+        @if (checkAdmin)
+        {
+            <li class="sub-menu">
+                <a class="cusleft-report" href="javascript:;">
+                    <i class="fa fa-archive"></i>
+                    <span>Thống kê</span>
+                </a>
+                <ul class="sub sub-cus">
+                    <li><a class="cusleft-reportattendance" href="/thong-tin-diem-danh">Dữ liệu điểm danh</a></li>
+                </ul>
+            </li>
+        }
+
+
+
+        @if (checkAdmin)
+        {
+            <li class="sub-menu">
+                <a class="cusleft-contact" href="javascript:;">
+                    <i class="fa fa-phone"></i>
+                    <span>Liên hệ</span>
+                </a>
+                <ul class="sub sub-cus">
+                    <li><a class="cusleft-contacts" href="/gop-y-phan-hoi">Góp ý - phản hồi</a></li>
+                </ul>
+            </li>
+
+            <li class="sub-menu">
+                <a class="cusleft-content" href="javascript:;">
+                    <i class="fa fa-file-code-o"></i>
+                    <span>Cấu hình Hệ thống</span>
+                </a>
+                <ul class="sub sub-cus">
+                    <li><a class="cusleft-contents" href="/noi-dung">Nội dung</a></li>
+                    <li><a class="cusleft-contentimgs" href="/noi-dung-hinh-anh">Nội dung hình ảnh</a></li>
+                </ul>
+            </li>
+        }*@
+
+
+
+    </ul>
+    <!-- sidebar menu end-->
+    <div class="nav pull-right top-menu" id="left-logout">
+        <ul class="nav pull-right top-menu">
+            <li><a class="logout"  href="/profile">Thông tin cá nhân</a></li>
+            <li><a class="logout" href="/logout">Đăng xuất</a></li>
+        </ul>
+    </div>
+</div>
+
